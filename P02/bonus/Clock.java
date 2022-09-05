@@ -40,15 +40,10 @@ public class Clock
 			System.out.println("ERROR: Invalid second(s) inputted!");
 		}
 		
-		//twoDigit(hour, minute, second);
 		Clock c1 = new Clock(hour, minute, second); //leads to constructor
 		System.out.println("The time is " + c1); //prints out the time inputted
 	}
-	
-	/*private twoDigit(int i)
-	{
-		
-	}*/
+
 	private int hours;
 	private int minutes;
 	private int seconds;
