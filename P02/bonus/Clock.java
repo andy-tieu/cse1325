@@ -1,3 +1,6 @@
+//Andy Tieu 1001635126
+//CSE1325-002
+
 import java.util.Scanner;
 
 public class Clock
@@ -7,6 +10,48 @@ public class Clock
 		this.hours = hours;
 		this.minutes = minutes;
 		this.seconds = seconds;
+		rationalize();
+	}
+	public int rationalize()
+	{
+		if(59 < seconds || seconds < 0)
+		{
+			while(59 < seconds)
+			{
+				minutes = minutes + 1;
+				seconds = seconds - 60;
+			}
+			while(seconds < 0)
+			{
+				minutes = minutes - 1;
+				seconds = seconds + 60;
+			}
+		}
+		if(59 < minutes || minutes < 0)
+		{
+			while(59 < minutes)
+			{
+				hours = hours + 1;
+				minutes = minutes - 60;
+			}
+			while(minutes < 0)
+			{
+				hours = hours - 1;
+				minutes = minutes + 60;
+			}
+		}
+		if(23 < hours || hours < 0)
+		{
+			while(23 < hours)
+			{
+				hours = hours - 24;
+			}
+			while(hours < 0)
+			{
+				hours = hours + 24;
+			}
+		}
+		return 0;
 	}
 	@Override
 	public String toString()
@@ -21,24 +66,10 @@ public class Clock
 		
 		System.out.print("Hour? ");
 		hour = in.nextInt();
-		if(0 > hour || hour > 23)
-		{
-			System.out.println("ERROR: Invalid hour(s) inputted!");
-		} //ERROR messages used to let user know this would not show on actual clock
-		
 		System.out.print("Minute? ");
 		minute = in.nextInt();
-		if(0 > minute || minute > 59)
-		{
-			System.out.println("ERROR: Invalid minute(s) inputted!");
-		}
-		
 		System.out.print("Second? ");
 		second = in.nextInt();
-		if(0 > second || second > 59)
-		{
-			System.out.println("ERROR: Invalid second(s) inputted!");
-		}
 		
 		Clock c1 = new Clock(hour, minute, second); //leads to constructor
 		System.out.println("The time is " + c1); //prints out the time inputted
