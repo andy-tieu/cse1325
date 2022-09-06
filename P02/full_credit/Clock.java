@@ -1,3 +1,6 @@
+//Andy Tieu 1001635126
+//CSE1325-002
+
 import java.util.Scanner;
 
 public class Clock
