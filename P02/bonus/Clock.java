@@ -12,7 +12,28 @@ public class Clock
 		this.seconds = seconds;
 		rationalize();
 	}
-	public int rationalize()
+	@Override
+	public String toString()
+	{
+		return hours + ":" + minutes + ":" + seconds;
+	}
+	
+	public static void main(String[] args)
+	{
+		Scanner in = new Scanner(System.in);
+		int hour, minute, second; //used to pass into the constructor in Clock.java
+		
+		System.out.print("Hour? ");
+		hour = in.nextInt();
+		System.out.print("Minute? ");
+		minute = in.nextInt();
+		System.out.print("Second? ");
+		second = in.nextInt();
+		
+		Clock c1 = new Clock(hour, minute, second); //leads to constructor
+		System.out.println("The time is " + c1); //prints out the time inputted
+	}
+	private int rationalize()
 	{
 		if(59 < seconds || seconds < 0)
 		{
@@ -52,27 +73,6 @@ public class Clock
 			}
 		}
 		return 0;
-	}
-	@Override
-	public String toString()
-	{
-		return hours + ":" + minutes + ":" + seconds;
-	}
-	
-	public static void main(String[] args)
-	{
-		Scanner in = new Scanner(System.in);
-		int hour, minute, second; //used to pass into the constructor in Clock.java
-		
-		System.out.print("Hour? ");
-		hour = in.nextInt();
-		System.out.print("Minute? ");
-		minute = in.nextInt();
-		System.out.print("Second? ");
-		second = in.nextInt();
-		
-		Clock c1 = new Clock(hour, minute, second); //leads to constructor
-		System.out.println("The time is " + c1); //prints out the time inputted
 	}
 
 	private int hours;
