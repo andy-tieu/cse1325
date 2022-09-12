@@ -1,4 +1,1 @@
-public class Suit
-{
-	enum Suit {U, T, A}
-}
+public enum Suit {U, T, A}

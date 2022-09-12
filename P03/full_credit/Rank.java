@@ -2,7 +2,10 @@ public class Rank
 {
 	public Rank(int rank)
 	{
-		this.rank = rank;
+		if(MIN <= rank && rank <= MAX)
+		{
+			this.rank = rank;
+		}
 	}
 	@Override
 	public String toString()
