@@ -12,8 +12,9 @@ public class Rank
 	{
 		return rank;
 	}
-	final public static int MIN = 0;
-	final public static int MAX = 9;
+
+	public static final int MIN = 0;
+	public static final int MAX = 9;
 	
 	private int rank;
 }
