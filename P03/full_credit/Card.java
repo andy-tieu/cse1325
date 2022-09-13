@@ -1,3 +1,6 @@
+//Andy Tieu 1001635126
+//CSE1325-002
+
 public class Card
 {
 	public Card(Rank rank, Suit suit)
@@ -8,7 +11,7 @@ public class Card
 	@Override
 	public String toString()
 	{
-		return rank + suit;
+		return rank + "" + suit;
 	}
 	
 	private Rank rank;

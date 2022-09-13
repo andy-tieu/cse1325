@@ -1,3 +1,6 @@
+//Andy Tieu 1001635126
+//CSE1325-002
+
 public class Rank
 {
 	public Rank(int rank)
@@ -10,7 +13,7 @@ public class Rank
 	@Override
 	public String toString()
 	{
-		return rank;
+		return rank + "";
 	}
 
 	public static final int MIN = 0;
