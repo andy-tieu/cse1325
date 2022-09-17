@@ -34,7 +34,14 @@ public class TravelCost
         
         for(int i = 0; i < vehicles.size(); ++i)
         {
-        	System.out.print(String.format("$ %.2f", vehicles.get(i).dollarsToTravel(miles)));
+        	if(vehicles.get(i).dollarsToTravel(miles) < 10)
+        	{
+        		System.out.print(String.format("$  %.2f", vehicles.get(i).dollarsToTravel(miles)));
+        	}
+        	else
+        	{
+        		System.out.print(String.format("$ %.2f", vehicles.get(i).dollarsToTravel(miles)));
+        	}
         	System.out.print(String.format(" (range %.0f)", vehicles.get(i).range()));
         	System.out.println(" " + vehicles.get(i));
         }
