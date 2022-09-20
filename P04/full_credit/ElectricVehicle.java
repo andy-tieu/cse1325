@@ -19,12 +19,25 @@ public class ElectricVehicle extends Vehicle
 	@Override
 	public double fuelConsumed(double miles)
 	{
+		if(miles * (whPerMile / 1000) > kwhInBattery)
+		{
+			throw new ArithmeticException("Trip takes more fuel than stored in the battery.");
+		}
 		return miles * (whPerMile / 1000);
 	}
 	
 	@Override
 	public double dollarsToTravel(double miles)
 	{
+		try
+		{
+			fuelConsumed(miles);
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+			System.exit(-1);
+		}
 		return fuelConsumed(miles) * (centsPerKwhOfElectricity / 100);
 	}
 	
