@@ -10,22 +10,22 @@ public class Item
 	
 	public String name()
 	{
-	
+		return name;
 	}
 	
 	public String description()
 	{
-	
+		return description;
 	}
 	
 	public int price()
 	{
-	
+		return price;
 	}
 
 	public int cost()
 	{
-	
+		return cost;
 	}
 	
 	@Override

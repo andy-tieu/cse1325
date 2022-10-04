@@ -13,6 +13,10 @@ public class MixIn
 		{
 			return flavor + " (" + amount + ")";
 		}
+		else
+		{
+			return flavor;
+		}
 	}
 	
 	private MixInFlavor flavor;
