@@ -34,8 +34,8 @@ public class Item
 		return name;
 	}
 		
-	private String name;
-	private String description;
-	private int cost;
-	private int price;
+	protected String name;
+	protected String description;
+	protected int cost;
+	protected int price;
 }

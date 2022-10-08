@@ -1,31 +1,35 @@
+import java.util.ArrayList;
+
 public class Scoop
 {
+	int i = 0;
 	public Scoop(IceCreamFlavor flavor)
 	{
 		this.flavor = flavor;
+		this.mixins = new ArrayList<>();
 	}
 	
 	public addMixIn(MixIn mixin)
 	{
-		int i = 0;
-		mixins = new MixIn[i];
-		i++;
+		mixins.add(mixin);
 	}
 
 	@Override
 	public String toString()
 	{
-		if(i.equals(1))
+		StringBuilder mixResult = new StringBuilder(flavor.toString());
+		if(mixins.size() > 0)
 		{
-			return flavor + " with " + mixins[0];
+			String separator = " with ";
+			for(MixIn m : mixins)
+			{
+				mixResult.append(separator + m.toString());
+				separator = ", ";
+			}
 		}
-		else if(i > 1)
-		{
-			return flavor + " with " + mixins[i];
-		}
-		return flavor;
+		return mixResult.toString();
 	}
 	
 	private IceCreamFlavor flavor;
-	private MixIn[] mixins;
+	private ArrayList<MixIn> mixins;
 }

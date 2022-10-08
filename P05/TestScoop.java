@@ -8,14 +8,10 @@ public class TestScoop
 		Scanner in = new Scanner(System.in);
 		ArrayList<IceCreamFlavor> iFlavor = new ArrayList<>();
 		ArrayList<MixInFlavor> mFlavor = new ArrayList<>();
+		ArrayList<Scoop> scoop = new ArrayList<>();
 		
 		while(input != q)
 		{
-			if(iFlavor == NULL)
-			{
-				System.out.print("Create new (m)ixin, (i)ce cream flavor, or (q)uit? ");
-			}
-			
 			System.out.print("Create new (m)ixin, (i)ce cream flavor, (s)coop, or (q)uit? ");
 			char input = in.nextChar();
 			
@@ -33,7 +29,7 @@ public class TestScoop
 				
 				mFlavor.add(new MixInFlavor(name, desc, price, cost));
 			}
-			else if(input == i)
+			else if(input == 'i')
 			{
 				System.out.println("\nCreating new Ice Cream Flavor!\n");
 				System.out.print("Name? ");
@@ -47,7 +43,7 @@ public class TestScoop
 				
 				iFlavor.add(new IceCreamFlavor(name, desc, price, cost));
 			}
-			else if(input == s)
+			else if(input == 's')
 			{
 				int iInput, mInput, aInput;
 				for(int i = 0; i < iFlavor.size(); ++i)

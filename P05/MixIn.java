@@ -1,6 +1,6 @@
 public class MixIn
 {
-	public MixIn(MixInFlavor flavor, MixInAmount amount)
+	public MixIn(MixInFlavor flavor, MixInAmount amount) //constructor
 	{
 		this.flavor = flavor;
 		this.amount = amount;
@@ -9,14 +9,7 @@ public class MixIn
 	@Override
 	public String toString()
 	{
-		if(amount != MixInAmount.Normal)
-		{
-			return flavor + " (" + amount + ")";
-		}
-		else
-		{
-			return flavor;
-		}
+		return flavor.toString() + (!amount.equals(MixInAmount.Normal) ? " (" + amount + ")" : "");
 	}
 	
 	private MixInFlavor flavor;
