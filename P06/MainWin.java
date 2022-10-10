@@ -52,19 +52,101 @@ public class MainWin extends JFrame
 	}
 	public onCreateIceCreamFlavorClick()
 	{
-		emporium.addIceCreamFlavor();
+		setLayout(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		
+		name = new JButton("Name");
+		name.addActionListener(
+				event -> {
+					String inName = JOptionPane.showInputDialog(this, "Name?");
+				});
+			constraints.gridy++;
+		add(name, constraints);
+		
+		description = new JButton("Description");
+		description.addActionListener(
+				event -> {
+					String inDesc = JOptionPane.showInputDialog(this, "Description?");
+				});
+			constraints.gridy++;
+		add(description, constraints);
+		
+		cost = new JButton("Cost");
+		cost.addActionListener(
+				event -> {
+					String inCost = JOptionPane.showInputDialog(this, "Cost?");
+				});
+			constraints.gridy++;
+		add(cost, constraints);
+		
+		price = new JButton("Price");
+		price.addActionListener(
+				event -> {
+					String inPrice = JOptionPane.showInputDialog(this, "Price?");
+				});
+			constraints.gridy++;
+		add(price, constraints);
+		
+		setSize(350, 200);
+		setVisible(true);
+		
+		emporium.addIceCreamFlavor(inName);
 	}
 	public onCreateMixInFlavorClick()
 	{
-	
+		setLayout(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		
+		name = new JButton("Name");
+		name.addActionListener(
+				event -> {
+					String inName = JOptionPane.showInputDialog(this, "Name?");
+				});
+			constraints.gridy++;
+		add(name, constraints);
+		
+		description = new JButton("Description");
+		description.addActionListener(
+				event -> {
+					String inDesc = JOptionPane.showInputDialog(this, "Description?");
+				});
+			constraints.gridy++;
+		add(description, constraints);
+		
+		cost = new JButton("Cost");
+		cost.addActionListener(
+				event -> {
+					String inCost = JOptionPane.showInputDialog(this, "Cost?");
+				});
+			constraints.gridy++;
+		add(cost, constraints);
+		
+		price = new JButton("Price");
+		price.addActionListener(
+				event -> {
+					String inPrice = JOptionPane.showInputDialog(this, "Price?");
+				});
+			constraints.gridy++;
+		add(price, constraints);
+		
+		setSize(350, 200);
+		setVisible(true);
+		
+		emporium.addMixInFlavor(inName);
 	}
 	public onCreateScoopClick()
 	{
-	
+		emporium.addScoop();
 	}
 	public onAboutClick()
 	{
-	
+		JDialog about = new JDialog();
+		about.setLayout(new FlowLayout());
+		about.setTitle("MICE");
 	}
 	private view(Screen screen)
 	{
@@ -72,5 +154,5 @@ public class MainWin extends JFrame
 	}
 	
 	private Emporium emporium;
-	private Jlabel display;
+	private JLabel display;
 }
