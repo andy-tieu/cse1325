@@ -1,7 +1,6 @@
 package gui;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
+import javax.swing.*;
 
 public class MainWin extends JFrame
 {
@@ -36,7 +35,7 @@ public class MainWin extends JFrame
 		
 		//adding buttons to menus
 		file.add(quit);
-		view.add;
+		//view.add;
 		create.add(newIceCream);
 		create.add(newMixIn);
 		create.add(newScoop);
@@ -48,11 +47,11 @@ public class MainWin extends JFrame
 		menubar.add(create);
 		menubar.add(help);
 	}
-	public onQuitClick()
+	public void onQuitClick()
 	{
 		System.exit(0);
 	}
-	public onCreateIceCreamFlavorClick()
+	public void onCreateIceCreamFlavorClick()
 	{
 		setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -95,8 +94,9 @@ public class MainWin extends JFrame
 		setVisible(true);
 		
 		emporium.addIceCreamFlavor(inName);
+		emporium.iceCreamFlavor();
 	}
-	public onCreateMixInFlavorClick()
+	public void onCreateMixInFlavorClick()
 	{
 		setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -141,19 +141,40 @@ public class MainWin extends JFrame
 		emporium.addMixInFlavor(inName);
 		emporium.mixInFlavors();
 	}
-	public onCreateScoopClick()
+	public void onCreateScoopClick()
 	{
+		String[] iceCreamChoice = emporium.iceCreamFlavors();
+		iceCreamChoices = new JComboBox<String>(iceCreamChoice);
 		
+		String[] mixInChoice = emporium.mixInFlavors();
+		mixInChoices = new JComboBox<String>(mixInChoice);
 		
-		emporium.addScoop();
+		Object[] objects = {
+			iceCreamChoice, iceCreamChoices,
+			mixInChoice, mixInChoices};
+		int button = JOptionPane.showConfirmDialog(
+			this,
+			objects,
+			"New Scoop",
+			JOptionPane.OK_CANCEL_OPTION,
+			JOptionPane.QUESTION_MESSAGE,
+			3);
+		if(button == JOptionPane.OK_OPTION)
+			JOptionPane.showMessageDialog(
+				this,
+				"Created!");
+		
+		Scoop scoop = new Scoop(iceCreamChoices.getSelectedItem());
+		scoop.addMixIn(mixInChoices.getSelectedItem());
+		emporium.addScoop(scoop);
 	}
-	public onAboutClick()
+	public void onAboutClick()
 	{
 		JDialog about = new JDialog();
 		about.setLayout(new FlowLayout());
 		about.setTitle("MICE");
 	}
-	private view(Screen screen)
+	private void view(Screen screen)
 	{
 	
 	}
