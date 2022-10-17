@@ -11,7 +11,7 @@ public class Scoop
 		this.mixins = new ArrayList<>();
 	}
 	
-	public addMixIn(MixIn mixin)
+	public void addMixIn(MixIn mixin)
 	{
 		mixins.add(mixin);
 	}
