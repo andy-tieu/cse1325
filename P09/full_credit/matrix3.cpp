@@ -1,5 +1,5 @@
 #include "matrix3.h"
-#include <iostream>
+#include <exception>
 
 Matrix3::Matrix3(int m00, int m10, int m20, int m01, int m11, int m21, int m02, int m12, int m22)
 	   : data[0][0]{m00}, data[1][0]{m10}, data[2][0]{m20}, data[0][1]{m01}, data[1][1]{m11}, 
@@ -19,7 +19,13 @@ int Matrix3::get(int x, int y)
 
 Matrix3 Matrix3::operator+(Matrix3 rhs)
 {
-	
+	for(int y; y < 3; ++y)
+	{
+		for(int x; x < 3; ++x)
+		{
+			rhs += data[x][y];
+		}
+	}
 }
 	
 std::ostream& operator<<(std::ostream& out, Matrix3 m)
