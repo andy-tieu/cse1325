@@ -116,36 +116,48 @@ public class MainWin extends JFrame
 			createICFButton.addActionListener(event -> onCreateIceCreamFlavorClick());
 		
 		JButton createMIFButton = new JButton(new ImageIcon("sprinkles.png"));
-			createMIFButton.setActionCommand("Create new ice cream flavor");
-			createMIFButton.setToolTipText("Create new ice cream flavor");
+			createMIFButton.setActionCommand("Create new mixin flavor");
+			createMIFButton.setToolTipText("Create new mixin flavor");
 			toolbar.add(createMIFButton);
 			createMIFButton.addActionListener(event -> onCreateMixInFlavorClick());
 			
-		JButton createSButton = new JButton(new ImageIcon("scoop.png"));
-			createSButton.setActionCommand("Create new ice cream flavor");
-			createSButton.setToolTipText("Create new ice cream flavor");
-			toolbar.add(createSButton);
-			createSButton.addActionListener(event -> onCreateScoopClick());
+		JButton createOButton = new JButton(new ImageIcon());
+			createOButton.setActionCommand("Create new order");
+			createOButton.setToolTipText("Create new order");
+			toolbar.add(createOButton);
+			createOButton.addActionListener(event -> onCreateOrderClick());
+			
+		JButton createCButton = new JButton(new ImageIcon());
+			createCButton.setActionCommand("Create new container");
+			createCButton.setToolTipText("Create new container");
+			toolbar.add(createCButton);
+			createCButton.addActionListener(event -> onCreateContainerClick());
 			
 		toolbar.add(Box.createHorizontalStrut(25));
 		
 		JButton viewICFButton = new JButton(new ImageIcon("ice-cream.png"));
-			viewICFButton.setActionCommand("Create new ice cream flavor");
-			viewICFButton.setToolTipText("Create new ice cream flavor");
+			viewICFButton.setActionCommand("View ice cream flavors");
+			viewICFButton.setToolTipText("View ice cream flavors");
 			toolbar.add(viewICFButton);
 			viewICFButton.addActionListener(event -> view(Screen.ICE_CREAM_FLAVORS));
 			
 		JButton viewMIFButton = new JButton(new ImageIcon("sprinkles.png"));
-			viewMIFButton.setActionCommand("Create new ice cream flavor");
-			viewMIFButton.setToolTipText("Create new ice cream flavor");
+			viewMIFButton.setActionCommand("View mixin flavors");
+			viewMIFButton.setToolTipText("View mixin flavors");
 			toolbar.add(viewMIFButton);
 			viewMIFButton.addActionListener(event -> view(Screen.MIX_IN_FLAVORS));
 			
-		JButton viewSButton = new JButton(new ImageIcon("scoop.png"));
-			viewSButton.setActionCommand("Create new ice cream flavor");
-			viewSButton.setToolTipText("Create new ice cream flavor");
-			toolbar.add(viewSButton);
-			viewSButton.addActionListener(event -> view(Screen.SCOOPS));
+		JButton viewOButton = new JButton(new ImageIcon());
+			viewOButton.setActionCommand("View orders");
+			viewOButton.setToolTipText("View orders");
+			toolbar.add(viewOButton);
+			viewOButton.addActionListener(event -> view(Screen.ORDERS));
+			
+		JButton viewCButton = new JButton(new ImageIcon());
+			viewCButton.setActionCommand("View containers");
+			viewCButton.setToolTipText("View containers");
+			toolbar.add(viewCButton);
+			viewCButton.addActionListener(event -> view(Screen.CONTAINERS));
 			
 		toolbar.add(Box.createHorizontalGlue());
 		
@@ -161,6 +173,7 @@ public class MainWin extends JFrame
 		
 		emporium = new Emporium();
 	}
+	
 	public void onOpenClick()
 	{
 		final JFileChooser fc = new JFileChooser(filename);
@@ -188,6 +201,7 @@ public class MainWin extends JFrame
 			}
 		}
 	}
+	
 	public void onSaveClick();
 	{
 		try(BufferedWriter bw = new BufferedWriter(new FileWriter(filename)))
@@ -201,6 +215,7 @@ public class MainWin extends JFrame
 			JOptionPane.showMessageDialog(this, "Unable to open" + filename + '\n' + e, "Failed", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
 	public void onSaveAsClick()
 	{
 		final JFileChooser fc = new JFileChooser(filename);
@@ -219,10 +234,12 @@ public class MainWin extends JFrame
 			onSaveClick();
 		}
 	}
+	
 	public void onQuitClick()
 	{
 		System.exit(0);
 	}
+	
 	public void onCreateIceCreamFlavorClick()
 	{
 		emporium.addIceCreamFlavor(new IceCreamFlavor(
@@ -239,6 +256,7 @@ public class MainWin extends JFrame
     	//newScoop.setEnabled(true);
     	view(Screen.ICE_CREAM_FLAVORS);
 	}
+	
 	public void onCreateMixInFlavorClick()
 	{
 		emporium.addMixInFlavor(new MixInFlavor(
@@ -253,6 +271,7 @@ public class MainWin extends JFrame
          ));
          view(Screen.MIX_IN_FLAVORS);
 	}
+	
 	public void onCreateScoopClick()
 	{
 		IceCreamFlavor icf = (IceCreamFlavor) JOptionPane.showInputDialog(this, 
@@ -273,11 +292,72 @@ public class MainWin extends JFrame
                     scoop.addMixIn(new MixIn(mif, mia));
                     prompt = "<html>" + scoop + "<br/>Add another mix in?</html>";
                 }
-            }
-            emporium.addScoop(scoop);
-            view(Screen.SCOOPS);         
+            }     
         }
 	}
+	
+	public void onCreateContainerClick()
+	{
+		emporium.addContainer(new MixInFlavor(
+			JOptionPane.showInputDialog(this, "Name?", 
+                "Create Mix In Flavor", JOptionPane.QUESTION_MESSAGE),
+            JOptionPane.showInputDialog(this, "Description?", 
+                "Create Mix In Flavor", JOptionPane.QUESTION_MESSAGE),
+            Integer.parseInt(JOptionPane.showInputDialog(this, "Max scoops?", 
+                "Create Mix In Flavor", JOptionPane.QUESTION_MESSAGE)),
+         ));
+         view(Screen.CONTAINERS);
+	}
+	
+	public void onCreateServingClick()
+	{
+		Serving s = (Serving) JOptionPane.showInputDialog(this, 
+            "Serving?", "New Serving", JOptionPane.QUESTION_MESSAGE, null, 
+            emporium.servings(), null);
+        if(icf != null) {
+            Scoop scoop = new Scoop(icf);
+            if(emporium.mixInFlavors().length > 0) {
+                String prompt = "<html>" + scoop + "<br/>Add a mix in?</html>";
+                while(true) {
+                    MixInFlavor mif = (MixInFlavor) JOptionPane.showInputDialog(this, prompt, 
+                        "Add Mix In", JOptionPane.QUESTION_MESSAGE, null, 
+                        emporium.mixInFlavors(), null);
+                    if(mif == null) break;
+                    MixInAmount mia = (MixInAmount) JOptionPane.showInputDialog(this, prompt, 
+                        "Add Mix In", JOptionPane.QUESTION_MESSAGE, null, 
+                        MixInAmount.values(), MixInAmount.Normal);
+                    scoop.addMixIn(new MixIn(mif, mia));
+                    prompt = "<html>" + scoop + "<br/>Add another mix in?</html>";
+                }
+            }     
+        }
+	}
+	
+	public void onCreateOrderClick()
+	{
+		Order o = (Order) JOptionPane.showInputDialog(this, 
+            "Order?", "New Order", JOptionPane.QUESTION_MESSAGE, null, 
+            emporium.orders(), null);
+        if(o != null) {
+            Order order = new Order(o);
+            if(emporium.orders().length > 0) {
+                String prompt = "<html>" + scoop + "<br/>Add a mix in?</html>";
+                while(true) {
+                    MixInFlavor mif = (MixInFlavor) JOptionPane.showInputDialog(this, prompt, 
+                        "Add Mix In", JOptionPane.QUESTION_MESSAGE, null, 
+                        emporium.mixInFlavors(), null);
+                    if(mif == null) break;
+                    MixInAmount mia = (MixInAmount) JOptionPane.showInputDialog(this, prompt, 
+                        "Add Mix In", JOptionPane.QUESTION_MESSAGE, null, 
+                        MixInAmount.values(), MixInAmount.Normal);
+                    scoop.addMixIn(new MixIn(mif, mia));
+                    prompt = "<html>" + scoop + "<br/>Add another mix in?</html>";
+                }
+            }     
+        }
+        view(Screen.ORDERS);
+	}
+	
 	public void onAboutClick()
 	{
 		JDialog about = new JDialog(this, "Mav Ice Cream Emporium");
@@ -314,7 +394,7 @@ public class MainWin extends JFrame
         about.setVisible(true);
 	}
 	
-	private enum Screen {ICE_CREAM_FLAVORS, MIX_IN_FLAVORS, SCOOPS}
+	private enum Screen {ICE_CREAM_FLAVORS, MIX_IN_FLAVORS, CONTAINERS, ORDERS}
 	private void view(Screen screen)
 	{
 		String title = "";

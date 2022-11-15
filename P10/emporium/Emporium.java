@@ -32,6 +32,7 @@ public class Emporium
         size = Integer.parseInt(in.readLine());
         while(size-- > 0) orders.add(new Order(in));
 	}
+	
 	public void save(BufferedWriter out) throws IOException
 	{
 		out.write("" + mixInFlavors.size() + '\n');
