@@ -97,10 +97,12 @@ public class MainWin extends JFrame {
         view.add(viewICF);
         view.add(viewMIF);
         view.add(viewOrder);
+        view.add(viewCustomer);
         create.add(createContainer);
         create.add(createICF);
         create.add(createMIF);
         create.add(createOrder);
+        create.add(createCustomer);
         help.add(about);
         
         menubar.add(file);
@@ -164,6 +166,12 @@ public class MainWin extends JFrame {
           toolbar.add(createOrderButton);
           createOrderButton.addActionListener(event -> onCreateOrderClick());
           createOrderButton.setEnabled(false);
+          
+        JButton createCustomerButton  = new JButton(new ImageIcon("gui/customer.png"));
+          createCustomerButton.setActionCommand("New customer");
+          createCustomerButton.setToolTipText("Create customer info");
+          toolbar.add(createCustomerButton);
+          createCustomerButton.addActionListener(event -> onCreateCustomerClick());
 
         toolbar.add(Box.createHorizontalStrut(25));
         
@@ -190,6 +198,12 @@ public class MainWin extends JFrame {
           viewOrdersButton.setToolTipText("View orders");
           toolbar.add(viewOrdersButton);
           viewOrdersButton.addActionListener(event -> view(Screen.ORDERS));
+          
+         JButton viewCustomersButton  = new JButton(new ImageIcon("gui/customer.png"));
+          viewCustomersButton.setActionCommand("View customers");
+          viewCustomersButton.setToolTipText("View customers");
+          toolbar.add(viewCustomersButton);
+          viewCustomersButton.addActionListener(event -> view(Screen.CUSTOMERS));
 
         getContentPane().add(toolbar, BorderLayout.PAGE_START);
         
@@ -342,22 +356,28 @@ public class MainWin extends JFrame {
     protected void onCreateOrderClick() {
         Order order = null;
         try {
-        	Customer customer = (Customer) JOptionPane.showInputDialog(this, "Customer Info?", "New Customer", JOptionPane.QUESTION_MESSAGE, null, emporium.customers(), null);
-            Serving serving = null;
-            while((serving = onCreateServing()) != null) {
-                if(order == null) order = new Order();
-                order.addServing(serving);
-                int result = JOptionPane.showConfirmDialog(
-                    this, order, "Add Another Serving?", JOptionPane.YES_NO_CANCEL_OPTION);
-                if(result == JOptionPane.CANCEL_OPTION) return;
-                if(result == JOptionPane.NO_OPTION) break;
-            }
-            if(order != null) emporium.addOrder(order);
-            setDirty(true);
-            view(Screen.ORDERS);
-        } catch(Exception e) {
-            System.err.println("onCreateScoop exception: " + e);
-        }
+        	Customer customer = (Customer) JOptionPane.showInputDialog(this, "Customer", "New Order", JOptionPane.QUESTION_MESSAGE, null, emporium.customers(), null);
+        	if(customer != null) {
+		        Serving serving = null;
+		        while((serving = onCreateServing()) != null) {
+		            if(order == null) order = new Order();
+		            order.addServing(serving);
+		            order.getCustomer();
+		            int result = JOptionPane.showConfirmDialog(
+		                this, order, "Add Another Serving?", JOptionPane.YES_NO_CANCEL_OPTION);
+		            if(result == JOptionPane.CANCEL_OPTION) return;
+		            if(result == JOptionPane.NO_OPTION) break;
+		        }
+		        if(order != null) {
+		        	emporium.addOrder(order);
+		        }
+		        setDirty(true);
+		        view(Screen.ORDERS);
+		    }
+		} 
+		catch(Exception e) {
+		        System.err.println("onCreateOrder exception: " + e);
+		}
     }
     protected void onCreateCustomerClick() {
     	try {
@@ -369,17 +389,22 @@ public class MainWin extends JFrame {
             Object[] objects = {
             	name,  names,
             	phone, phones,
-            }
+            };
             
             int button = JOptionPane.showConfirmDialog( // Show the dialog
                 this, objects, "New Customer", JOptionPane.OK_CANCEL_OPTION,
-                  JOptionPane.QUESTION_MESSAGE, new ImageIcon("gui/createIceCreamFlavorButton.png"));
+                  JOptionPane.QUESTION_MESSAGE, new ImageIcon("gui/customer.png"));
             if(button == JOptionPane.OK_OPTION) {
                 emporium.addCustomer(new Customer(
-                    names.getText(), descs.getText()));
+                    names.getText(), phones.getText()));
                 setDirty(true);
                 view(Screen.CUSTOMERS);         
            }
+           setDirty(true);
+           view(Screen.MIX_IN_FLAVORS);  
+    	}
+    	catch(Exception e) {
+    		System.err.println("onCreateCustomer exception: " + e);
     	}
     }
     protected Serving onCreateServing() {
@@ -438,7 +463,7 @@ public class MainWin extends JFrame {
         return scoop;
     }
     
-    
+
     protected MixIn onCreateMixIn(String prompt) {
         MixIn mixin = null;
         try {

@@ -13,7 +13,7 @@ public class Customer extends Person {
 		super(in);
 	}
 	
-	public save(BufferedWriter out) throws IOException {
+	public void save(BufferedWriter out) throws IOException {
 		super.save(out);
 	}
 }

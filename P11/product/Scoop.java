@@ -34,7 +34,7 @@ public class Scoop {
     	for(MixIn m : mixins) {
     		sp += m.price();
     	}
-    	sp + flavor.price();
+    	sp += flavor.price();
     	return sp;
     }
     

@@ -1,5 +1,8 @@
 package product;
 
+import person.Person;
+import person.Customer;
+
 import java.util.ArrayList;
 
 import java.io.BufferedReader;
@@ -50,6 +53,7 @@ public class Order {
                 separator = "<br/>";
             }
         }
+        result.append(Order.price());
         return result.toString();
     }
     
