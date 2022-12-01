@@ -5,7 +5,12 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-public class Polynomial {
+public class Polynomial implements Runnable {
+	/*@Override
+	public void run() {
+		not really sure how to implement threads
+	}*/
+	
     public static boolean log = false;   // Set true to print log messages
     public synchronized void LOG(String s) {
         if(log) System.err.println("==> " + s);

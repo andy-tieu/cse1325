@@ -11,7 +11,7 @@ public class Solver {
     public static void main(String[] args) {
         double  min = -1000;           // Start searching for roots at x = min
         double  max = 1000;            // Stop  searching for roots at x = max
-        double  slices = 300000000;    // Check this many points between min and max
+        double  slices = 100000000;    // Check this many points between min and max
         int     threads = 1;           // Use this many threads to search
         double  precision = 0.000001;  // When a root is detected, narrow to this precision
         boolean log = false;           // Whether to print log messages to STDERR or not
